@@ -1,16 +1,20 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import { KeyboardAvoidingView, SafeAreaView,View ,TextInput,TouchableOpacity,Text, StyleSheet} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { PaymentContext } from './context/PaymentContext'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 
 function NewPaymentScreen() {
   const [amount,setAmount]=useState(null)
   const [phone,setPhone]=useState(null)
   const [errorMessage,setErrorMessage]=useState("")
-  
+  const {isLoading,addTransaction}=useContext(PaymentContext)
 
 
   return (
     <SafeAreaView style={{flex:1,justifyContent:'center'}}>
+      <Spinner visible={isLoading}/>
       <KeyboardAvoidingView>
          <View style={{paddingHorizontal:25}}>
             <Text style={styles.error}>Amount is required</Text>
@@ -46,7 +50,7 @@ function NewPaymentScreen() {
            marginBottom:30
          }}
          onPress={()=>{
-          console.log(amount,phone)
+          addTransaction(amount,phone)
          }}>
             <Text style={{textAlign:'center',fontWeight:'700',fontSize:16,color:'white'}}>Pay</Text>
          </TouchableOpacity>
