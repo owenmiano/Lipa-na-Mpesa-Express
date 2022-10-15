@@ -24,7 +24,10 @@ const getOAuthToken=async(req,res,next)=>{
         return next();
 
     }catch(err){
-    res.status(400).json(err.message)
+        return res.send({
+            success:false,
+            message:err.message
+        });
 
     }
     

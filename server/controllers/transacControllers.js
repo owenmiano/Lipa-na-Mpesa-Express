@@ -1,8 +1,11 @@
 const axios=require('axios')
-
+const Transactions=require('../models/Transactions')
 exports.payAmount=async(req,res)=>{
     const phone=req.body.phone.substring(1)
     const money=req.body.amount
+    if(!phone) return res.status(400).json({message:"Phone Number is required"})
+    if(!money) return res.status(400).json({message:"Amount is required"})
+
     const date=new Date()
     const timestamp=
          date.getFullYear() +
@@ -25,10 +28,10 @@ exports.payAmount=async(req,res)=>{
     let partyA = `254${phone}`; //should follow the format:2547xxxxxxxx
     let partyB = bs_short_code;
     let phoneNumber = `254${phone}`; //should follow the format:2547xxxxxxxx
-    let callBackUrl = "https://5cec-197-237-246-189.ngrok.io/mpesa/lipa-na-mpesa-callback";
+    let callBackUrl = "https://d4d3-197-237-246-189.ngrok.io/api/myCallBackUrl";
     let accountReference = `254${phone}`;
     let transaction_desc = "Testing"
-
+// https://mydomain.com/path
     try {
 
         let {data} = await axios.post(url,{
@@ -49,12 +52,67 @@ exports.payAmount=async(req,res)=>{
             }
         })
         console.log(data)
-        return res.status(200).json(data)
+     return  res.status(200).json(data)
     }catch(err){
-
+        
         return res.send({
             success:false,
             message:err.message
+        });
+    }
+}
+
+exports.callBackUrl=async(req,res)=>{
+    let body=req.body
+    let {ResultCode,ResultDesc}=body.Body.stkCallback;
+    let receipt,amount,phone,date=""
+    
+    if(ResultCode != 0){
+        console.log(ResultCode,ResultDesc) 
+        return res.status(400).json({message:`${ResultDesc}`})
+    } 
+    let list=body.Body.stkCallback.CallbackMetadata.Item;
+    list.forEach(item => {
+        if (item.Name === "MpesaReceiptNumber") {
+            receipt = item.Value
+        }
+        if (item.Name === "TransactionDate") {
+            date = item.Value
+        }
+        if (item.Name === "PhoneNumber") {
+            phone = item.Value
+
+        }
+        if (item.Name === "Amount") {
+            amount = item.Value
+        }
+    });
+    try {
+    const newTransaction=await Transactions.create({
+            receipt,amount,phone,date 
+        })
+        console.log(ResultDesc,newTransaction)
+        res.status(201).json({message:`${ResultDesc}`,newTransaction})
+    } catch (error) {
+        console.log(error.message)
+        return res.send({
+            success:false,
+            message:error.message
+        });
+    }
+}
+
+exports.fetchAllTransactions=async(req,res)=>{
+    try {
+        const allTransactions=await Transactions.find();
+        console.log(allTransactions)
+        return res.status(200).json(allTransactions)
+
+    } catch (error) {
+        console.log(error.message)
+        return res.send({
+            success:false,
+            message:error.message
         });
     }
 }

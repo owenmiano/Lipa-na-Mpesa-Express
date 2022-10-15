@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 // Create User Schema
 const userSchema=mongoose.Schema({
-    
+    receipt:{
+        type:String,
+        required:true
+    },
     amount:{
         type:Number,
         required:true,
@@ -10,10 +13,14 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true
     },
+    date:{
+        type:String,
+        required:true
+    },
     
 },
 {
-    timestamps:true
+    timestamps:false
 })
 
 module.exports=mongoose.model('Transactions',userSchema)
