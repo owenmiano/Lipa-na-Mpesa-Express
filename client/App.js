@@ -1,10 +1,14 @@
 import React from 'react'
-import NewPaymentScreen from './src/screens/NewPaymentScreen'
+import BottomTabs from './src/screens/BottomTabs'
+import { PaymentProvider } from './src/context/PaymentContext'
 
 
 function App() {
   return (
-    <NewPaymentScreen/>
+    <PaymentProvider>
+       <BottomTabs/>
+    </PaymentProvider>
+    
   )
 }
 

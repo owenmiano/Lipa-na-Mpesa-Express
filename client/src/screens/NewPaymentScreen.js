@@ -9,12 +9,12 @@ function NewPaymentScreen() {
   const [amount,setAmount]=useState(null)
   const [phone,setPhone]=useState(null)
   const [errorMessage,setErrorMessage]=useState("")
-  const {isLoading,addTransaction}=useContext(PaymentContext)
+  // const {isLoading,addTransaction}=useContext(PaymentContext)
 
 
   return (
     <SafeAreaView style={{flex:1,justifyContent:'center'}}>
-      <Spinner visible={isLoading}/>
+      {/* <Spinner visible={isLoading}/> */}
       <KeyboardAvoidingView>
          <View style={{paddingHorizontal:25}}>
             <Text style={styles.error}>Amount is required</Text>
