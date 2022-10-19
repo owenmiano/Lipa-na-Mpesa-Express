@@ -1,7 +1,7 @@
 const axios=require('axios')
 const Transactions=require('../models/Transactions')
 exports.payAmount=async(req,res)=>{
-    const phone=req.body.phone.substring(1)
+    const phone=req.body.phone
     const money=req.body.amount
     if(!phone) return res.status(400).json({message:"Phone Number is required"})
     if(!money) return res.status(400).json({message:"Amount is required"})
@@ -21,15 +21,16 @@ exports.payAmount=async(req,res)=>{
     let url = process.env.lipa_na_mpesa_url;
     let bs_short_code = process.env.lipa_na_mpesa_shortcode;
     let passkey = process.env.lipa_na_mpesa_passkey;
+    let officialPhoneNo=phone.substring(1)
 
     let password = new Buffer.from(`${bs_short_code}${passkey}${timestamp}`).toString('base64');
     let transcation_type = "CustomerPayBillOnline";
     let amount = `${money}`; //you can enter any amount
-    let partyA = `254${phone}`; //should follow the format:2547xxxxxxxx
+    let partyA = `254${officialPhoneNo}`; //should follow the format:2547xxxxxxxx
     let partyB = bs_short_code;
-    let phoneNumber = `254${phone}`; //should follow the format:2547xxxxxxxx
-    let callBackUrl = "https://d4d3-197-237-246-189.ngrok.io/api/myCallBackUrl";
-    let accountReference = `254${phone}`;
+    let phoneNumber = `254${officialPhoneNo}`; //should follow the format:2547xxxxxxxx
+    let callBackUrl = "http://192.168.100.5:6000/api/myCallBackUrl";
+    let accountReference = `254${officialPhoneNo}`;
     let transaction_desc = "Testing"
 // https://mydomain.com/path
     try {
