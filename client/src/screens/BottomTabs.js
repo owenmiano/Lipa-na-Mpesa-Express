@@ -13,7 +13,7 @@ const allPayment = "AllPayments";
 
 const Tab = createBottomTabNavigator();
 
-function Temporary() {
+function BottomTabs () {
     // const {forecast,refreshing}=useContext(ApiContext)
    
   return (
@@ -52,4 +52,4 @@ function Temporary() {
   )
 }
 
-export default Temporary
+export default BottomTabs 
