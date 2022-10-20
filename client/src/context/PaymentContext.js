@@ -6,7 +6,9 @@ export const PaymentContext=createContext()
 
 export const PaymentProvider=({children})=>{
     const[payments,setPayments]=useState({})
+    const[transactions,setTransactions]=useState({})
     const [isLoading,setIsLoading]=useState(false)
+    const [refreshing,setRefreshing]=useState(false)
     const [errors,setErrors]=useState("")
      // Login User
   const addTransaction=async(amount,phone)=>{
@@ -33,13 +35,38 @@ export const PaymentProvider=({children})=>{
         console.log(error.response.data.message)
       }
   }
+
+  // fetch all transactions
+  const fetchAllTransactions=async()=>{
+    try {
+       setRefreshing(true) 
+      await axios.get(`${BASE_URL}/api/allTransactions`)
+      .then(res=>{
+          let transactionInfo=res.data
+          // console.log(transactionInfo)
+          setTransactions(transactionInfo)
+          setRefreshing(false)
+       })
+    } catch (error) {
+        setRefreshing(false)
+        setErrors(error.response.data.message)
+        console.log(error.response.data.message)
+      }
+  }
+
+  useEffect(()=>{
+    fetchAllTransactions()
+  },[])
    
     return(
     <PaymentContext.Provider 
         value={{
           addTransaction,
           isLoading,
-          errors
+          refreshing,
+          errors,
+          payments,
+          transactions
           }}>
          {children}
       </PaymentContext.Provider>

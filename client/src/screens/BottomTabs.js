@@ -8,8 +8,8 @@ import NewPaymentScreen from './NewPaymentScreen'
 import AllPaymentScreen from './AllPaymentScreen'
 
 //Screen names
-const newPayment = "NewPayment";
-const allPayment = "AllPayments";
+const newPayment = "New Payment";
+const allPayment = "All Payments";
 
 const Tab = createBottomTabNavigator();
 
