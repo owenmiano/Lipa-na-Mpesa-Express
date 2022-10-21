@@ -2,10 +2,14 @@ import React,{useContext} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Foundation from 'react-native-vector-icons/Foundation';
+
+
 
 // Screens
 import NewPaymentScreen from './NewPaymentScreen'
 import AllPaymentScreen from './AllPaymentScreen'
+import { PaymentContext } from '../context/PaymentContext';
 
 //Screen names
 const newPayment = "New Payment";
@@ -14,7 +18,7 @@ const allPayment = "All Payments";
 const Tab = createBottomTabNavigator();
 
 function BottomTabs () {
-    // const {forecast,refreshing}=useContext(ApiContext)
+    const {fetchAllTransactions}=useContext(PaymentContext)
    
   return (
   
@@ -30,12 +34,24 @@ function BottomTabs () {
             iconName=focused ? 'ios-add-circle' : 'ios-add-circle-outline'
           }else if(rn === allPayment){
             iconName=focused ? 'ios-list-circle' : 'ios-list-circle-outline'
+            
           }
           return <Ionicons name={iconName} size={size} color={color}/>
         },
         tabBarActiveTintColor: 'blue',
         // headerShown:false,
         postion:'absolute',
+        headerRight: () => (
+          <Foundation
+                name="refresh"
+                size={30}
+                marginLeft={10}
+                color="black"
+                onIconPress={() => {
+                  fetchAllTransactions()
+                }}
+              />
+  ),
         
     })
     }

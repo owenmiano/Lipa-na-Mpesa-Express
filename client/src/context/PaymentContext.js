@@ -66,7 +66,8 @@ export const PaymentProvider=({children})=>{
           refreshing,
           errors,
           payments,
-          transactions
+          transactions,
+          fetchAllTransactions
           }}>
          {children}
       </PaymentContext.Provider>
