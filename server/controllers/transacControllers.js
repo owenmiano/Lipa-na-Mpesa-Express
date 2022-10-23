@@ -29,7 +29,7 @@ exports.payAmount=async(req,res)=>{
     let partyA = `254${officialPhoneNo}`; //should follow the format:2547xxxxxxxx
     let partyB = bs_short_code;
     let phoneNumber = `254${officialPhoneNo}`; //should follow the format:2547xxxxxxxx
-    let callBackUrl = "https://23e5-197-237-246-189.ngrok.io/api/myCallBackUrl";
+    let callBackUrl = "https://a4b3-197-237-246-189.ngrok.io/api/myCallBackUrl";
     let accountReference = `254${officialPhoneNo}`;
     let transaction_desc = "Testing"
 // https://mydomain.com/path
@@ -93,7 +93,7 @@ exports.callBackUrl=async(req,res)=>{
             receipt,amount,phone,date 
         })
         console.log(ResultDesc,newTransaction)
-        res.status(201).json({message:`${ResultDesc}`,newTransaction})
+      return  res.status(201).json({message:`${ResultDesc}`,newTransaction})
     } catch (error) {
         console.log(error.message)
         return res.send({
