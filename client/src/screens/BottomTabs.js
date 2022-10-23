@@ -10,6 +10,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import NewPaymentScreen from './NewPaymentScreen'
 import AllPaymentScreen from './AllPaymentScreen'
 import { PaymentContext } from '../context/PaymentContext';
+import { TouchableOpacity } from 'react-native';
 
 //Screen names
 const newPayment = "New Payment";
@@ -41,17 +42,17 @@ function BottomTabs () {
         tabBarActiveTintColor: 'blue',
         // headerShown:false,
         postion:'absolute',
-        headerRight: () => (
-          <Foundation
-                name="refresh"
-                size={30}
-                marginLeft={10}
-                color="black"
-                onIconPress={() => {
-                  fetchAllTransactions()
-                }}
-              />
-  ),
+  //       headerRight: () => (
+  //         <TouchableOpacity onPress={()=> fetchAllTransactions()}>
+  //           <Foundation
+  //               name="refresh"
+  //               size={30}
+                
+  //               color="black"
+  //             />
+  //         </TouchableOpacity>
+          
+  // ),
         
     })
     }
@@ -60,7 +61,23 @@ function BottomTabs () {
    
     >
       <Tab.Screen name={newPayment} component={NewPaymentScreen} />
-      <Tab.Screen name={allPayment} component={AllPaymentScreen} />
+      <Tab.Screen name={allPayment}
+       component={AllPaymentScreen}
+       options={{
+        headerRight: () => (
+          <TouchableOpacity
+           onPress={()=> fetchAllTransactions()}
+           style={{paddingRight: 20}}>
+                      <Foundation
+                        name="refresh"
+                        size={35}
+                        
+                        color="black"
+                        />
+            </TouchableOpacity>
+        ),
+       }}
+       />
     </Tab.Navigator>
 
     </NavigationContainer>
