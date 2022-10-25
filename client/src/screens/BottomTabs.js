@@ -42,17 +42,7 @@ function BottomTabs () {
         tabBarActiveTintColor: 'blue',
         // headerShown:false,
         postion:'absolute',
-  //       headerRight: () => (
-  //         <TouchableOpacity onPress={()=> fetchAllTransactions()}>
-  //           <Foundation
-  //               name="refresh"
-  //               size={30}
-                
-  //               color="black"
-  //             />
-  //         </TouchableOpacity>
-          
-  // ),
+
         
     })
     }

@@ -1,5 +1,5 @@
 import React,{useContext, useState} from 'react'
-import { KeyboardAvoidingView, SafeAreaView,View ,TextInput,TouchableOpacity,Text, StyleSheet,Alert} from 'react-native'
+import { KeyboardAvoidingView, SafeAreaView,View ,TextInput,TouchableOpacity,Text, StyleSheet,Alert,ToastAndroid} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { PaymentContext } from '../context/PaymentContext'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -8,10 +8,10 @@ import Spinner from 'react-native-loading-spinner-overlay'
 function NewPaymentScreen() {
   const [amount,setAmount]=useState(null)
   const [phone,setPhone]=useState(null)
-  const {isLoading,addTransaction,errors}=useContext(PaymentContext)
-
+  const {isLoading,addTransaction,errors,payments}=useContext(PaymentContext)
 
   return (
+    
     <SafeAreaView style={{flex:1,justifyContent:'center'}}>
       <Spinner visible={isLoading}/>
       <KeyboardAvoidingView>
@@ -19,8 +19,6 @@ function NewPaymentScreen() {
            
            (<Text style={styles.error}>{errors}</Text>)
            :
-        
-           
            null
            }
          <View style={{paddingHorizontal:25}}>
@@ -59,6 +57,7 @@ function NewPaymentScreen() {
           addTransaction(amount,phone)
          }}>
             <Text style={{textAlign:'center',fontWeight:'700',fontSize:16,color:'white'}}>Pay</Text>
+            
          </TouchableOpacity>
          </View>
          

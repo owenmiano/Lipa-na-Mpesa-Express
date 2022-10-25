@@ -1,6 +1,7 @@
 import React,{createContext, useEffect, useState} from 'react'
 import { BASE_URL } from '../components/Config'
 import axios from 'axios'
+import { ToastAndroid} from 'react-native'
 
 export const PaymentContext=createContext()
 
@@ -24,10 +25,12 @@ export const PaymentProvider=({children})=>{
             }  
         }   
         ).then(res=>{
-          let paymentInfo=res.data
+          let paymentInfo=res.data.ResponseDescription
           console.log(paymentInfo)
           setPayments(paymentInfo)
-          setIsLoading(false)
+           setIsLoading(false)
+           ToastAndroid.show(`${payments}`, ToastAndroid.SHORT);
+
        })
     } catch (error) {
         setIsLoading(false)
