@@ -29,7 +29,7 @@ exports.payAmount=async(req,res)=>{
     let partyA = `254${officialPhoneNo}`; //should follow the format:2547xxxxxxxx
     let partyB = bs_short_code;
     let phoneNumber = `254${officialPhoneNo}`; //should follow the format:2547xxxxxxxx
-    let callBackUrl = "https://6a28-197-237-246-189.ngrok.io/api/myCallBackUrl";
+    let callBackUrl = "https://8efc-197-237-246-189.ngrok.io/api/myCallBackUrl";
     let accountReference = `MpesaApiTest`;
     let transaction_desc = "Testing"
 // https://mydomain.com/path
