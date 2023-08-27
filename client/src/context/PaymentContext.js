@@ -24,14 +24,15 @@ export const PaymentProvider=({children})=>{
             'Accept': "application/json",
             }  
         }   
-        ).then(res=>{
+        ).then((res)=>{
           let paymentInfo=res.data.ResponseDescription
+          // let callbackResponse=res.data.ResultDesc
           console.log(paymentInfo)
+          // console.log(callbackResponse)
           setPayments(paymentInfo)
            setIsLoading(false)
-           ToastAndroid.show(`${payments}`, ToastAndroid.SHORT);
-
-       })
+           ToastAndroid.show(`${paymentInfo}`, ToastAndroid.SHORT);
+})
     } catch (error) {
         setIsLoading(false)
         setErrors(error.response.data.message)

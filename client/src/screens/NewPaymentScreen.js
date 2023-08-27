@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, SafeAreaView,View ,TextInput,TouchableOpacity,Tex
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { PaymentContext } from '../context/PaymentContext'
 import Spinner from 'react-native-loading-spinner-overlay'
-
+import { numberWithCommas } from "../components/format";
 
 function NewPaymentScreen() {
   const [amount,setAmount]=useState(null)
@@ -56,7 +56,7 @@ function NewPaymentScreen() {
          onPress={()=>{
           addTransaction(amount,phone)
          }}>
-            <Text style={{textAlign:'center',fontWeight:'700',fontSize:16,color:'white'}}>Pay</Text>
+            <Text style={{textAlign:'center',fontWeight:'700',fontSize:16,color:'white'}}>Pay {amount && numberWithCommas(amount)}</Text>
             
          </TouchableOpacity>
          </View>
